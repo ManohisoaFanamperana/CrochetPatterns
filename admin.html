@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - CrochetPatterns</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧶</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script async src="https://accounts.google.com/gsi/client"></script>
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body class="bg-gray-50">
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <button id="homeBtn" class="text-purple-600 font-semibold hover:underline">← Accueil</button>
+                <span class="text-2xl">🧶</span>
+                <h1 class="text-xl font-bold text-purple-600">Admin</h1>
+            </div>
+            <div class="flex items-center gap-4">
+                <span id="connectionStatus" class="text-sm text-gray-600">● Hors ligne</span>
+                <div id="googleAuth"></div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-4 py-8">
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-8 rounded">
+            <p class="text-blue-700"><strong>💡 Info:</strong> Tous les patrons sont sauvegardés localement. La synchronisation Google Drive se fait automatiquement quand vous êtes connecté.</p>
+        </div>
+
+        <form id="patronForm" class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold mb-6 text-purple-600">Ajouter un nouveau patron</h2>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <label class="block text-sm font-semibold mb-2">Nom du patron *</label>
+                    <input type="text" id="patronName" name="name" required 
+                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        placeholder="Ex: Amigurumi Chat">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold mb-2">Catégorie *</label>
+                    <select id="patronCategory" name="category" required
+                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <option value="">Sélectionner une catégorie</option>
+                        <option value="amigurumi">Amigurumi</option>
+                        <option value="accessoire">Accessoires</option>
+                        <option value="vetement">Vêtements</option>
+                        <option value="deco">Décoration</option>
+                        <option value="autre">Autre</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold mb-2">Niveau *</label>
+                    <select id="patronLevel" name="level" required
+                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <option value="">Sélectionner un niveau</option>
+                        <option value="debutant">Débutant</option>
+                        <option value="intermediaire">Intermédiaire</option>
+                        <option value="avance">Avancé</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold mb-2">Taille du crochet (mm) *</label>
+                    <input type="text" id="patronHookSize" name="hookSize" required placeholder="Ex: 3.5"
+                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold mb-2">Quantité de fil (m) *</label>
+                    <input type="number" id="patronYarnAmount" name="yarnAmount" required placeholder="Ex: 200"
+                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold mb-2">Matériel (séparé par des virgules)</label>
+                    <input type="text" id="patronMaterials" name="materials" placeholder="Ex: Fil, aiguille, boutons"
+                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-sm font-semibold mb-2">Description</label>
+                <textarea id="patronDescription" name="description" rows="4"
+                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    placeholder="Décrivez votre patron..."></textarea>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <label class="block text-sm font-semibold mb-2">Image du patron</label>
+                    <input type="file" id="patronImage" name="image" accept="image/*"
+                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    <p class="text-xs text-gray-500 mt-1">Sera automatiquement compressée</p>
+                    <img id="imagePreview" class="mt-3 max-h-32 rounded hidden">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold mb-2">Fichier PDF du patron</label>
+                    <input type="file" id="patronPdf" name="pdf" accept="application/pdf"
+                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    <p id="pdfName" class="text-xs text-gray-500 mt-1"></p>
+                </div>
+            </div>
+
+            <div class="flex gap-4">
+                <button type="submit" class="flex-1 bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition flex items-center justify-center gap-2">
+                    <span>💾</span>
+                    <span id="submitText">Sauvegarder le patron</span>
+                </button>
+                <button type="reset" class="flex-1 bg-gray-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-600 transition">
+                    Réinitialiser
+                </button>
+            </div>
+
+            <div id="successMessage" class="hidden mt-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+                ✅ Patron sauvegardé avec succès!
+            </div>
+            <div id="errorMessage" class="hidden mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg"></div>
+        </form>
+
+        <section class="bg-white rounded-lg shadow-lg p-8">
+            <h2 class="text-2xl font-bold mb-6 text-purple-600">Patrons locaux</h2>
+            <div id="localPatronsList" class="space-y-4">
+                <!-- Sera rempli par JavaScript -->
+            </div>
+            <p id="noLocalPatrons" class="text-gray-500 text-center py-8">Aucun patron stocké localement</p>
+        </section>
+    </main>
+
+    <footer class="bg-gray-900 text-white py-8 mt-16">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <p>CrochetPatterns © 2025</p>
+        </div>
+    </footer>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

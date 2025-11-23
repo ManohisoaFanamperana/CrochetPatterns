@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrochetPatterns - Patrons de Crochet Gratuits</title>
+    <meta name="description" content="Découvrez et créez des patrons de crochet, en ligne et hors-ligne.">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧶</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script async src="https://accounts.google.com/gsi/client"></script>
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body class="bg-gray-50">
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl">🧶</span>
+                <h1 class="text-xl font-bold text-purple-600">CrochetPatterns</h1>
+            </div>
+            <div class="flex items-center gap-4">
+                <span id="connectionStatus" class="text-sm text-gray-600">● Hors ligne</span>
+                <div id="googleAuth"></div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="bg-gradient-to-b from-purple-600 to-purple-400 text-white py-20">
+            <div class="max-w-4xl mx-auto px-4 text-center">
+                <h2 class="text-5xl font-bold mb-6">Créez avec passion 🧶</h2>
+                <p class="text-xl mb-8 opacity-90">
+                    Explorez notre collection de patrons de crochet, travaillez hors-ligne,
+                    sauvegardez vos créations dans le cloud.
+                </p>
+                <div class="flex gap-4 justify-center flex-wrap">
+                    <button id="exploreBtn" class="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
+                        Découvrir les patrons
+                    </button>
+                    <button id="adminBtn" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-purple-600 transition">
+                        Espace Admin
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 bg-white">
+            <div class="max-w-4xl mx-auto px-4 grid md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="text-4xl mb-3">📱</div>
+                    <h3 class="font-bold text-lg mb-2">Accessible Partout</h3>
+                    <p class="text-gray-600">Accédez à vos patrons en ligne ou hors-ligne, sur tous vos appareils.</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl mb-3">☁️</div>
+                    <h3 class="font-bold text-lg mb-2">Synchronisation Cloud</h3>
+                    <p class="text-gray-600">Sauvegardez automatiquement sur Google Drive.</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl mb-3">🎨</div>
+                    <h3 class="font-bold text-lg mb-2">Gestion Facile</h3>
+                    <p class="text-gray-600">Ajoutez vos patrons rapidement avec l'interface admin.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 bg-gray-50">
+            <div class="max-w-4xl mx-auto px-4">
+                <h3 class="text-2xl font-bold mb-8 text-center">Statistiques</h3>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <div class="text-3xl font-bold text-purple-600" id="patronCount">0</div>
+                        <p class="text-gray-600">Patrons disponibles</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <div class="text-3xl font-bold text-purple-600" id="storageStatus">0 MB</div>
+                        <p class="text-gray-600">Utilisés localement</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-900 text-white py-8 mt-16">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <p>CrochetPatterns © 2025 - Offline-first & PWA Ready</p>
+            <p class="text-gray-500 mt-2">Basé sur HTML5, TailwindCSS, Service Workers & Google Drive API</p>
+        </div>
+    </footer>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

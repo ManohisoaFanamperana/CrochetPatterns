@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrons de Crochet - CrochetPatterns</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧶</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script async src="https://accounts.google.com/gsi/client"></script>
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body class="bg-gray-50">
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <button id="homeBtn" class="text-purple-600 font-semibold hover:underline">← Accueil</button>
+                <span class="text-2xl">🧶</span>
+                <h1 class="text-xl font-bold text-purple-600">Mes Patrons</h1>
+            </div>
+            <div class="flex items-center gap-4">
+                <span id="connectionStatus" class="text-sm text-gray-600">● Hors ligne</span>
+                <div id="googleAuth"></div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        <section class="mb-8 bg-white p-6 rounded-lg shadow">
+            <h2 class="text-2xl font-bold mb-6">Filtres</h2>
+            <div class="grid md:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-sm font-semibold mb-2">Recherche</label>
+                    <input type="text" id="searchInput" placeholder="Chercher un patron..." 
+                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-2">Catégorie</label>
+                    <select id="categoryFilter" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <option value="">Toutes les catégories</option>
+                        <option value="amigurumi">Amigurumi</option>
+                        <option value="accessoire">Accessoires</option>
+                        <option value="vetement">Vêtements</option>
+                        <option value="deco">Décoration</option>
+                        <option value="autre">Autre</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-2">Niveau</label>
+                    <select id="levelFilter" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <option value="">Tous les niveaux</option>
+                        <option value="debutant">Débutant</option>
+                        <option value="intermediaire">Intermédiaire</option>
+                        <option value="avance">Avancé</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div id="loadingSpinner" class="text-center py-8">
+                <div class="inline-block animate-spin">🔄</div>
+                <p class="mt-2">Chargement des patrons...</p>
+            </div>
+
+            <div id="patronsList" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 hidden">
+                <!-- Les cartes seront insérées ici par JavaScript -->
+            </div>
+
+            <div id="emptyState" class="text-center py-16 hidden">
+                <div class="text-6xl mb-4">📭</div>
+                <h3 class="text-xl font-semibold text-gray-700">Aucun patron trouvé</h3>
+                <p class="text-gray-500 mt-2">Essayez d'ajuster vos filtres ou créez votre premier patron dans l'espace Admin.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-900 text-white py-8 mt-16">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <p>CrochetPatterns © 2025</p>
+        </div>
+    </footer>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
